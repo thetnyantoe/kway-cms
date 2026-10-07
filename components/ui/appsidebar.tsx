@@ -29,25 +29,24 @@ import {
   LucideIcon,
 } from "lucide-react";
 
-// 1. Define item and group structure with optional role restrictions
 interface MenuItem {
   title: string;
   icon: LucideIcon;
   path: string;
-  roles?: string[]; // If omitted, allowed for all roles in group
+  roles?: string[]; 
 }
 
 interface MenuGroup {
   label: string;
-  roles?: string[]; // Allowed roles for this whole group
+  roles?: string[]; 
   items: MenuItem[];
 }
 
-// 2. Define Menu Groups configured by Role
+
 const menuGroups: MenuGroup[] = [
   {
     label: "Main",
-    roles: ["admin"], // Restricted to admin
+    roles: ["admin"], 
     items: [
       {
         title: "Dashboard",
@@ -59,7 +58,7 @@ const menuGroups: MenuGroup[] = [
   },
   {
     label: "Finance Management",
-    roles: ["admin", "finance"], // Both Admin & Finance can see this group
+    roles: ["admin", "finance"], 
     items: [
       {
         title: "Transactions",
@@ -113,7 +112,7 @@ export function AppSidebar({ basePath }: { basePath?: string }) {
   const router = useRouter();
   const { logout, user, role } = useAuth();
 
-  // Dynamic basePath based on role if not provided as a prop
+
   const currentBasePath = basePath || `/dashboard/${role || ""}`;
 
   const handleLogout = async () => {
@@ -125,9 +124,8 @@ export function AppSidebar({ basePath }: { basePath?: string }) {
     }
   };
 
-  // Helper check function for roles
   const hasAccess = (allowedRoles?: string[]) => {
-    if (!allowedRoles) return true; // Allowed for all if undefined
+    if (!allowedRoles) return true; 
     return role ? allowedRoles.includes(role) : false;
   };
 
@@ -144,9 +142,8 @@ export function AppSidebar({ basePath }: { basePath?: string }) {
 
       <SidebarContent>
         {menuGroups
-          .filter((group) => hasAccess(group.roles)) // Filter group level access
+          .filter((group) => hasAccess(group.roles)) 
           .map((group) => {
-            // Filter item level access inside allowed groups
             const visibleItems = group.items.filter((item) =>
               hasAccess(item.roles),
             );
