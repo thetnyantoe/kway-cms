@@ -84,7 +84,6 @@ const initialValues: UniversityFormData = {
   notesList: [""],
 };
 
-// 84 Cities
 const KOREAN_CITIES = [
   "Seoul (Gangnam)",
   "Seoul (Mapo)",
@@ -179,7 +178,7 @@ const KOREAN_CITIES = [
   "Gyeongju",
   "Gimcheon",
   "Andong",
-  " 구미",
+  "Gumi",
   "Yeongju",
   "Sangju",
   "Mungyeong",
@@ -196,7 +195,6 @@ const KOREAN_CITIES = [
   "Seogwipo",
 ];
 
-// Common preset majors
 const COMMON_MAJORS = [
   "Business Administration",
   "Computer Science",
@@ -428,6 +426,7 @@ export function UniversityForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      {/* Basic Header Details */}
       <Card>
         <CardHeader>
           <CardTitle className="text-lg">
@@ -517,6 +516,7 @@ export function UniversityForm({
         </CardContent>
       </Card>
 
+      {/* Quick Metric Summaries */}
       <Card>
         <CardHeader>
           <CardTitle className="text-lg">Quick Metric Summaries</CardTitle>
@@ -561,6 +561,7 @@ export function UniversityForm({
         </CardContent>
       </Card>
 
+      {/* Descriptions */}
       <Card>
         <CardHeader>
           <CardTitle className="text-lg">Descriptions</CardTitle>
@@ -594,6 +595,7 @@ export function UniversityForm({
         </CardContent>
       </Card>
 
+      {/* D4 Language Program Details */}
       <Card>
         <CardHeader>
           <CardTitle className="text-lg">D4 Language Program Info</CardTitle>
@@ -668,6 +670,7 @@ export function UniversityForm({
         </CardContent>
       </Card>
 
+      {/* Available Majors */}
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle className="text-lg">Available Majors (D-2)</CardTitle>
@@ -686,7 +689,7 @@ export function UniversityForm({
               key={index}
               className="flex items-start gap-3 p-3 bg-slate-50 border border-slate-200 rounded-xl"
             >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 flex-1">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 flex-1 items-start">
                 <div className="space-y-1">
                   <Input
                     list={`majors-list-${index}`}
@@ -702,7 +705,8 @@ export function UniversityForm({
                     ))}
                   </datalist>
                 </div>
-                <Input
+                <Textarea
+                  rows={2}
                   placeholder="Major description"
                   value={item.description}
                   onChange={(e) =>
@@ -725,6 +729,7 @@ export function UniversityForm({
         </CardContent>
       </Card>
 
+      {/* D2 Tuition Fee Per Semester */}
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle className="text-lg">
@@ -777,6 +782,7 @@ export function UniversityForm({
         </CardContent>
       </Card>
 
+      {/* Estimated Cost */}
       <Card>
         <CardHeader>
           <CardTitle className="text-lg">
@@ -794,6 +800,7 @@ export function UniversityForm({
         </CardContent>
       </Card>
 
+      {/* Admission Schedule / Intakes */}
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle className="text-lg">
@@ -845,6 +852,7 @@ export function UniversityForm({
         </CardContent>
       </Card>
 
+      {/* Scholarships */}
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle className="text-lg">Scholarships</CardTitle>
@@ -889,6 +897,7 @@ export function UniversityForm({
         </CardContent>
       </Card>
 
+      {/* Dormitory Info */}
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle className="text-lg">Dormitory</CardTitle>
@@ -931,6 +940,7 @@ export function UniversityForm({
         </CardContent>
       </Card>
 
+      {/* Important Notes */}
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle className="text-lg">Note</CardTitle>
@@ -969,22 +979,14 @@ export function UniversityForm({
         </CardContent>
       </Card>
 
+      {/* Submission Actions */}
       <div className="flex justify-end gap-3 pt-4">
         {onCancel && (
-          <Button
-            type="button"
-            variant="outline"
-            onClick={onCancel}
-            className="cursor-pointer"
-          >
+          <Button type="button" variant="outline" onClick={onCancel}>
             Cancel
           </Button>
         )}
-        <Button
-          type="submit"
-          disabled={submitting || uploadingImage}
-          className="cursor-pointer"
-        >
+        <Button type="submit" disabled={submitting || uploadingImage}>
           {uploadingImage
             ? "Uploading Image..."
             : submitting

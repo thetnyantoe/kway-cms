@@ -37,7 +37,7 @@ const initialValues: HousingFormData = {
   locationInfo: "",
   floor: "",
   roomSize: "",
-  elevator: "Yes",
+  elevator: "",
   rentalType: "",
   mapUrl: "",
   imageKey: "",
@@ -111,7 +111,7 @@ export function HousingForm({
         locationInfo: initialData.locationInfo ?? "",
         floor: initialData.floor ?? "",
         roomSize: initialData.roomSize ?? "",
-        elevator: initialData.elevator ?? "Yes",
+        elevator: initialData.elevator ?? "",
         rentalType: initialData.rentalType ?? "Monthly",
         mapUrl: initialData.mapUrl ?? "",
         imageKey: initialData.imageKey ?? "",
@@ -327,13 +327,12 @@ export function HousingForm({
         <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="space-y-1.5">
             <label className="text-xs font-semibold text-slate-600">
-              Monthly Rent (₩) *
+              Monthly Rent (₩)
             </label>
             <Input
-              type="number"
+              type="text"
               name="monthlyRent"
-              required
-              placeholder="e.g. 450000"
+              placeholder="e.g. 450000 or 20000-40000"
               value={formData.monthlyRent}
               onChange={handleChange}
             />
@@ -341,12 +340,11 @@ export function HousingForm({
 
           <div className="space-y-1.5">
             <label className="text-xs font-semibold text-slate-600">
-              Deposit (₩) *
+              Deposit (₩)
             </label>
             <Input
-              type="number"
+              type="text"
               name="deposit"
-              required
               placeholder="e.g. 3000000"
               value={formData.deposit}
               onChange={handleChange}
@@ -358,7 +356,7 @@ export function HousingForm({
               Maintenance Fee (₩)
             </label>
             <Input
-              type="number"
+              type="text"
               name="maintenanceFee"
               placeholder="e.g. 150000"
               value={formData.maintenanceFee}
@@ -393,7 +391,7 @@ export function HousingForm({
             </label>
             <Input
               name="roomSize"
-              placeholder="e.g. 17 m²"
+              placeholder="e.g. 17"
               value={formData.roomSize}
               onChange={handleChange}
             />
@@ -409,6 +407,7 @@ export function HousingForm({
               onChange={handleChange}
               className="w-full h-9 px-3 text-sm bg-white border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-slate-400"
             >
+              <option value="">Not Specified</option>
               <option value="Yes">Yes</option>
               <option value="No">No</option>
             </select>
@@ -450,7 +449,7 @@ export function HousingForm({
             </label>
             <Input
               name="locationInfo"
-              placeholder=""
+              placeholder="e.g. 8 mins Walk to Korean University"
               value={formData.locationInfo}
               onChange={handleChange}
             />
@@ -557,7 +556,6 @@ export function HousingForm({
         </CardContent>
       </Card>
 
-      {/* Submission Actions */}
       <div className="flex justify-end gap-3 pt-4">
         {onCancel && (
           <Button
