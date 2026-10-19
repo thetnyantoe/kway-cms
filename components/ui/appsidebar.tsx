@@ -27,26 +27,28 @@ import {
   Settings,
   ShieldCheck,
   LucideIcon,
+  University,
+  House,
+  Building,
 } from "lucide-react";
 
 interface MenuItem {
   title: string;
   icon: LucideIcon;
   path: string;
-  roles?: string[]; 
+  roles?: string[];
 }
 
 interface MenuGroup {
   label: string;
-  roles?: string[]; 
+  roles?: string[];
   items: MenuItem[];
 }
-
 
 const menuGroups: MenuGroup[] = [
   {
     label: "Main",
-    roles: ["admin"], 
+    roles: ["admin"],
     items: [
       {
         title: "Dashboard",
@@ -58,7 +60,7 @@ const menuGroups: MenuGroup[] = [
   },
   {
     label: "Finance Management",
-    roles: ["admin", "finance"], 
+    roles: ["admin", "finance"],
     items: [
       {
         title: "Transactions",
@@ -93,6 +95,16 @@ const menuGroups: MenuGroup[] = [
         icon: FileText,
         path: "/articles",
       },
+      {
+        title: "Universities",
+        icon: University,
+        path: "/universities",
+      },
+      {
+        title: "Housing",
+        icon: Building,
+        path: "/housing",
+      },
     ],
   },
   {
@@ -112,7 +124,6 @@ export function AppSidebar({ basePath }: { basePath?: string }) {
   const router = useRouter();
   const { logout, user, role } = useAuth();
 
-
   const currentBasePath = basePath || `/dashboard/${role || ""}`;
 
   const handleLogout = async () => {
@@ -125,7 +136,7 @@ export function AppSidebar({ basePath }: { basePath?: string }) {
   };
 
   const hasAccess = (allowedRoles?: string[]) => {
-    if (!allowedRoles) return true; 
+    if (!allowedRoles) return true;
     return role ? allowedRoles.includes(role) : false;
   };
 
@@ -142,7 +153,7 @@ export function AppSidebar({ basePath }: { basePath?: string }) {
 
       <SidebarContent>
         {menuGroups
-          .filter((group) => hasAccess(group.roles)) 
+          .filter((group) => hasAccess(group.roles))
           .map((group) => {
             const visibleItems = group.items.filter((item) =>
               hasAccess(item.roles),
